@@ -183,15 +183,13 @@ hljs.initHighlightingOnLoad();
 
 <h2>Background</h2>
 
-<p>A century has sailed by since the luxury steamship RMS Titanic met its catastrophic end in the North Atlantic, plunging two miles to the ocean floor after sideswiping an iceberg during its maiden voyage. Rather than the intended Port of New York, a deep-sea grave became the pride of the White Star Line&#39;s final destination in the early hours of April 15, 1912. More than 1,500 people lost their lives in the disaster. In the decades since her demise, Titanic has inspired countless books and several notable films while continuing to make headlines, particularly since the 1985 discovery of her resting place off the coast of Newfoundland. Meanwhile, her story has entered the public consciousness as a powerful cautionary tale about the perils of human hubris.</p>
+<h4>A century has sailed by since the luxury steamship RMS Titanic met its catastrophic end in the North Atlantic, plunging two miles to the ocean floor after sideswiping an iceberg during its maiden voyage. Rather than the intended Port of New York, a deep-sea grave became the pride of the White Star Line&#39;s final destination in the early hours of April 15, 1912. More than 1,500 people lost their lives in the disaster. In the decades since her demise, Titanic has inspired countless books and several notable films while continuing to make headlines, particularly since the 1985 discovery of her resting place off the coast of Newfoundland. Meanwhile, her story has entered the public consciousness as a powerful cautionary tale about the perils of human hubris.</h4>
 
 <p><center><img src="http://khongthe.com/wallpapers/boats/titanic-explosion-14864.jpg" width="800" height="400"></center></p>
 
 <h2>Lets try to predict the survival of titanic pasengers.</h2>
 
-<ul>
-<li>First we will upload  and divide data into traning and testing datasets.</li>
-</ul>
+<h3>Lets upload  and divide data into traning and testing datasets.</h3>
 
 <pre><code class="r">train.column.types &lt;- c(&#39;integer&#39;,   # PassengerId
                         &#39;factor&#39;,    # Survived 
@@ -225,18 +223,21 @@ test.raw &lt;- read.csv(&quot;test.csv&quot;,
 df.test &lt;- test.raw
 </code></pre>
 
-<h2>After properly ceating the train and test datasets. We will begain our EDA.</h2>
+<h3>After creating train and test datasets. We will begain our EDA.</h3>
 
-<p>Befor getting into the data. lets try to formulate our undestanding about the ship and its passengers. This will help us to deside and find relations between the variables to better predict survival of perticulat person.</p>
+<hr/>
 
-<p>Acess to life boat was very crusial Factor and Childern and Women were the first priority.Variables such as <em>Age</em> , <em>sex</em> , and <em>Name</em> can be used.
-Titanic was a very big ship with multiple levels. So Knowlwdge of archicture of ship can play a very crucial role for a person to reach at the top of the ship. we have <em>cabin</em> and <em>passenger class</em> to predict pesengers location on the ship.</p>
+<h4>Before getting into the data. Let&#39;s try to formulate our understanding about the ship and its passengers. This will help us to decide and find relations between the variables to better predict survival of a particular person.</h4>
+
+<h4>1. Access to life boat was very crucial Factor and Children and Women were the first priority. Variables such as <strong>Age</strong>, <strong>sex</strong>, and <strong>Name</strong> can be used.</h4>
+
+<h4>2. The titanic was gigantic ship with multiple levels. So knowledge of architecture of the ship can play a very crucial role for a person to reach at the top of the ship. We have <strong>cabins</strong> and <strong>passenger class</strong> to predict the passenger&#39;s location on the ship.</h4>
 
 <h3>With this knowledge we will start our EDA.</h3>
 
 <hr/>
 
-<h2>Have a Look at Data</h2>
+<h3>Have a Look at Data</h3>
 
 <pre><code class="r">dim(df.train)
 </code></pre>
@@ -307,9 +308,9 @@ missmap(df.train, main=&quot;Titanic Training Data - Missings Map&quot;,
 
 <p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-3"/> </p>
 
-<p>As we can see from the graph, <em>Cabin</em> and <em>Age</em> have a lot of missing data.Roughly 20 percent of the Age data is missing, and well above 70 percent of the passengers cannot be linked to a specific cabin number. While the proportion of Age &ldquo;missings&rdquo; is likely small enough for reasonable replacement with some form of imputation, the cabin missings seem too extensive to make reliable imputation possible. Nevertheless, some data could be better than zero data, so I&#39;ll look at cabin numbers later to see how we can put them to use.</p>
+<h4>As we can see from the graph, Cabin and Age have a lot of missing data.Roughly 20 percent of the Age data is missing, and well above 70 percent of the passengers cannot be linked to a specific cabin number. While the proportion of Age &ldquo;missings&rdquo; is likely small enough for reasonable replacement with some form of imputation, the cabin missings seem too extensive to make reliable imputation possible. Nevertheless, some data could be better than zero data, so we will look at cabin numbers later to see how we can put them to use.</h4>
 
-<p>Before we start filling in missing data, let&#39;s see what can be learned from the data we have. Putting some simple data visualization tools to work can take us a long way toward understanding what might influence the outcome we&#39;re trying to predict &ndash; in this case, whether or not a passenger survived. Below is some code and the graphs they produced:</p>
+<h4>Before we start filling missing data, let&#39;s see what can be learned from the data we have. Putting some simple data visualization tools to work can take us a long way toward understanding what might influence the outcome we&#39;re trying to predict &ndash; in this case, whether or not a passenger survived. Below is some code and the graphs they produced:</h4>
 
 <pre><code class="r">par(mfrow=c(2,4))
 barplot(table(df.train$Survived),
@@ -336,18 +337,21 @@ barplot(table(df.train$Embarked),
 <pre><code class="r">par(mfrow=c(1,1))
 </code></pre>
 
-<p>Note the dominant categories in these graphs:</p>
+<h4>Note the dominant categories in these graphs:</h4>
 
-<ol>
-<li>People who parished were almost double than people who servived (Fig-1).</li>
-<li>Most people were traveling in thried class. Almost double of First and second   class people (Fig-2).</li>
-<li>Males were almost double of females (Fig-3).</li>
-<li>Age is normaly distrubuted with mean around 30 (Fig-4).</li>
-<li>There were many people who had not payed any thing for the tickets (Fig-7) or may be they were with their family and some one else had paied for their ticket.</li>
-<li>Most people stat=rted their journey from &ldquo;Southampthon&rdquo;.</li>
-</ol>
+<h4>1. People who parished were almost double than people who servived (Fig-1).</h4>
 
-<p>Mosaic plots offer an interesting  &ndash; and arguably under-utilized &ndash; way to summarize data</p>
+<h4>2. Most people were traveling in thired class. Almost double of First and second   class pessengers (Fig-2).</h4>
+
+<h4>3. Males were almost double than females (Fig-3).</h4>
+
+<h4>4. Age is normaly distrubuted with mean around 30 (Fig-4).</h4>
+
+<h4>5. There were many people who had not payed any thing for the tickets (Fig-7) or may be they were with their family and some one else had payed for their ticket.</h4>
+
+<h4>6. Most people started their journey from &ldquo;Southampthon&rdquo;.</h4>
+
+<h4>Mosaic plots offer an interesting  &ndash; and arguably under-utilized &ndash; way to summarize data.Lets see what we can get from them.</h4>
 
 <pre><code class="r">par(mfrow=c(1,3))
 mosaicplot(df.train$Pclass ~ df.train$Survived, 
@@ -370,9 +374,9 @@ mosaicplot(df.train$Embarked ~ df.train$Survived,
 <pre><code class="r">par(mfrow=c(1,1))
 </code></pre>
 
-<p>As we can see from (Fig-9) P-class will play a very important role in predicting the fate of the passenger. Passenger in class 1 are less likely to die as compare to passenger in class-3 or we can say there is a decreasing chances of servival as passenger class decreases from 1 to 3. </p>
+<h4>As we can see from (Fig-9) P-class will play a very important role in predicting the fate of the passenger. Passenger in class 1 is less likely to die as compared to passenger in a class-3 or we can say there is a decreasing chance of survival as a passenger class decreases from 1 to 3.</h4>
 
-<p>Moreover, (Fig-10) suggest, very few female passengers dies as compare to male passengers and Embark station (Fig-11) has some effect on fate of the passenger.Even though as we have seen most people embarked from Southampthon. </p>
+<h4>Moreover, (Fig-10) suggest, very few female passengers died as compared to male passengers and Embark station (Fig-11) has some effect on the fate of the passenger. Even though, as we have seen most people embarked from Southampthon.</h4>
 
 <pre><code class="r">boxplot(df.train$Age ~ df.train$Survived, 
         main=&quot;Passenger Fate by Age&quot;,
@@ -381,7 +385,7 @@ mosaicplot(df.train$Embarked ~ df.train$Survived,
 
 <p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-6"/> </p>
 
-<p>Age has almost no efect on the fate of the passenger.</p>
+<h4>Age has almost no efect on the fate of the passenger.</h4>
 
 <pre><code class="r">require(corrgram)
 corrgram.data &lt;- df.train
@@ -401,13 +405,13 @@ corrgram(corrgram.data[,corrgram.vars], order=FALSE,
 
 <p><img src="data:image/png;base64,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" alt="plot of chunk unnamed-chunk-7"/> </p>
 
-<p>The Corrgram shown above confirms a couple of observations already made &ndash; namely, that survival odds drop with class, and age may not prove to be a significant predictor. Given that the upper class ranks tend to be represented by an older demographic, an inverse correlation between age and traveling class is to be expected. Although fare and class are closely related, it might be worth throwing the Fare feature into the mix as another way to define a passenger&#39;s location on the ship.</p>
+<h4>The Corrgram shown above confirms a couple of observations already made &ndash; namely, that survival odds drop with class, and age may not prove to be a significant predictor. Given that the upper class ranks tend to be represented by an older demographic, an inverse correlation between age and traveling class is to be expected. Although fare and class are closely related, it might be worth throwing the Fare feature into the mix as another way to define a passenger&#39;s location on the ship.</h4>
 
 <h3>Time to move to the next step, <strong>Data Manipulation</strong> .</h3>
 
-<p>In this process we will try to change and adjust few data values to make date more sense absed on our EDA and prior knowledge of the subject. </p>
+<h4>In this process we will try to change and adjust few data values to make date more sense absed on our EDA and prior knowledge of the subject.</h4>
 
-<p>Lets start with finding missing values for Age. There are many imputation techniques such as replacing the missing values by mean value, by use of regression method or by nearest similar values. </p>
+<h4>Lets start with finding missing values for Age. There are many imputation techniques such as replacing the missing values by mean value, use of regression method or nearest similar observation.</h4>
 
 <pre><code class="r">summary(df.train$Age)
 </code></pre>
@@ -416,7 +420,7 @@ corrgram(corrgram.data[,corrgram.vars], order=FALSE,
 ##    0.42   20.12   28.00   29.70   38.00   80.00     177
 </code></pre>
 
-<p>We can replace all 177 missing values by mean age that is 29.70 . Taking that approach would be fine if only a small fraction of the ages were missing. However, with missings accounting for 20 percent of all Age data in a relatively small data set (&lt;900 records), one could justify a search for a more refined method of imputation. Let&#39;s peek again at the list of currently available features:</p>
+<h4>We can replace all 177 missing values by mean age that is 29.70. Taking that approach would be fine if only a small fraction of the ages were missing. However, with missing accounting for 20 percent of all Age data in a relatively small data set (&lt;900 records), one could justify a search for a more refined method of importation. Let&#39;s peek again at the list of currently available features:</h4>
 
 <pre><code class="r">names(df.train)
 </code></pre>
@@ -426,7 +430,7 @@ corrgram(corrgram.data[,corrgram.vars], order=FALSE,
 ## [11] &quot;Cabin&quot;       &quot;Embarked&quot;
 </code></pre>
 
-<p>recalling our EDA results we can see that non of the variable has any significant effect on the Age of the passenger. So lets try so other technique. Lets explore <em>Name</em> field.</p>
+<h4>Recalling our EDA results we can see that none of the variable has any significant effect on the Age of the passenger. So lets try some other technique. Let&#39;s explore <em>Name</em> field.</h4>
 
 <pre><code class="r">head(df.train$Name, n=10L)
 </code></pre>
@@ -443,8 +447,9 @@ corrgram(corrgram.data[,corrgram.vars], order=FALSE,
 ## [10] &quot;Nasser, Mrs. Nicholas (Adele Achem)&quot;
 </code></pre>
 
-<p>As we can see from here we can extract some patern to better predict missing <em>Age</em> values as compare to simply replacing it by mean of all data sets. 
-Name field consistes of &ldquo;Title&rdquo; such as Mr., Master, Miss, Ms,Dr etc. We can extract those value to segment passengers based on there title, which is a very good indicator of Age.</p>
+<h4>As we can observe from the above results. We can extract some pattern to better predict missing <em>Age</em> values as compared to simply replace it by mean of all data sets.</h4>
+
+<h4>Name field consists of &ldquo;Title&rdquo; such as Mr., Master, Miss, Ms,Dr. Etc. We can extract those value to segment passengers based on their title, which is a very good indicator of Age.</h4>
 
 <pre><code class="r">## function for extracting honorific (i.e. title) from the Name feature
 getTitle &lt;- function(data) {
@@ -528,9 +533,9 @@ df.train$Age[which(df.train$Title==&quot;Dr&quot;)]
 ##       0      21      30      29      35      80
 </code></pre>
 
-<p>After doing the age imputations, I check the Age data and find that the function seems to have done its job.</p>
+<h4>After doing the age imputations, I check the Age data and find that the function seems to have done its job.</h4>
 
-<p>We may recall that the Embarked feature also had few missing values. A summary of that data</p>
+<h4>We may recall that the Embarked feature also had few missing values. A summary of that data</h4>
 
 <pre><code class="r">summary(df.train$Embarked)
 </code></pre>
@@ -539,12 +544,12 @@ df.train$Age[which(df.train$Title==&quot;Dr&quot;)]
 ##  168   77  644    2
 </code></pre>
 
-<p>There are just two missings. It should be fine to replace those missings with &ldquo;S&rdquo;, the most common value.</p>
+<h4>There are just two missings values. It should be fine to replace those missings with &ldquo;S&rdquo;, the most common value.</h4>
 
 <pre><code class="r">df.train$Embarked[which(is.na(df.train$Embarked))] &lt;- &#39;S&#39;
 </code></pre>
 
-<p>Now lets analize missing values in <em>Fare</em> column.</p>
+<h4>Now lets analize missing values in <em>Fare</em> column.</h4>
 
 <pre><code class="r">summary(df.train$Fare)
 </code></pre>
@@ -589,14 +594,14 @@ df.train$Age[which(df.train$Title==&quot;Dr&quot;)]
 ## 805  27       Mr      3  7.0
 </code></pre>
 
-<p>The jump in fares from 0 to the 4-7 range suggests errors. I replaced the zero Fare values with the median fare from the respective passenger class using the imputMedian function</p>
+<h4>The jump in fares from 0 to the 4-7 range suggests errors. I replaced the zero Fare values with the median fare from the respective passenger class using the imputMedian function we reated earlier.</h4>
 
 <pre><code class="r">df.train$Fare[ which( df.train$Fare == 0 )] &lt;- NA
 df.train$Fare &lt;- imputeMedian(df.train$Fare, df.train$Pclass, 
                               as.numeric(levels(df.train$Pclass)))
 </code></pre>
 
-<p>I see the titles as more than merely a guide for imputation of missing ages. A passenger&#39;s title can reflect gender, his/her position on the ship (officers &amp; royalty), and access to a lifeboat (where &ldquo;Master&rdquo; superceded &ldquo;Mr&rdquo;). Making the effort to get the Title feature and reduce 17 different titles to 8 most prominent sub groups.</p>
+<h4>I see the titles as more than merely a guide for imputation of missing ages. A passenger&#39;s title can reflect gender, his/her position on the ship (officers &amp; royalty), and access to a lifeboat (where &ldquo;Master&rdquo; superceded &ldquo;Mr&rdquo;). Making the effort to get the Title feature and reduce 17 different titles to 8 most prominent sub groups.</h4>
 
 <pre><code class="r">df.train$Title &lt;- factor(df.train$Title,
                          c(&quot;Capt&quot;,&quot;Col&quot;,&quot;Major&quot;,&quot;Sir&quot;,&quot;Lady&quot;,&quot;Rev&quot;,
@@ -636,7 +641,7 @@ levels(df.train$Title)
 <pre><code>## [1] &quot;Nobel&quot;  &quot;Miss&quot;   &quot;Mrs&quot;    &quot;Mr&quot;     &quot;Master&quot; &quot;Dr&quot;     &quot;Ms&quot;     &quot;Lady&quot;
 </code></pre>
 
-<h3>Now lets perform some basic feature engineering technique to better present data before moving to the model building process.</h3>
+<h3>Now in the end, lets perform some basic feature engineering technique to better present our data. Before moving to the model building process.</h3>
 
 <pre><code class="r">require(plyr)     # for the revalue function 
 require(stringr)  # for the str_sub function
@@ -686,7 +691,7 @@ featureEngrg &lt;- function(data) {
 df.train &lt;- featureEngrg(df.train) 
 </code></pre>
 
-<p>We finish the data munging process by paring down the data frame to the columns that we will use in model building.</p>
+<h4>We finish the data munging process by paring down the data frame to the columns that we will use in model building.</h4>
 
 <pre><code class="r">train.keeps &lt;- c(&quot;Fate&quot;, &quot;Sex&quot;, &quot;Boat.dibs&quot;, &quot;Age&quot;, &quot;Title&quot;, 
                  &quot;Class&quot;, &quot;Deck&quot;, &quot;Side&quot;, &quot;Fare&quot;, &quot;Fare.pp&quot;, 
@@ -699,9 +704,9 @@ summary(train.batch)
 <pre><code>## Error in summary(train.batch): object &#39;train.batch&#39; not found
 </code></pre>
 
-<h2>Model Building process:-</h2>
+<h3>Model Building process:-</h3>
 
-<p>I will start model building process with the most common process knows as Logistic regression. Using Generalised liner model technique ,family as Binimial, with logit link.</p>
+<h4>We will start model building process with the most common process knows as Logistic regression. Using Generalised liner model technique ,family as Binimial, with logit link.</h4>
 
 <pre><code class="r">## split training data into train batch and test batch
 set.seed(23)
@@ -731,9 +736,9 @@ Titanic.logit.1
 ## Residual Deviance: 626   AIC: 644
 </code></pre>
 
-<p>951 null model deviance to 604 model1 Residual deviance and 622 AIC &hellip;significant difference of 347. It seems we have already done a very good job with these selected variables.A decrease in deviance of about 36% percent from the null model</p>
+<h4>951 null model deviance to 604 model1 Residual deviance and 622 AIC &hellip;significant difference of 347. It seems we have already done a very good job with these selected variables.A decrease in deviance of about 36% from the null model.</h4>
 
-<h3>Annova Table to see the significance of the variables.</h3>
+<h4>let&#39;s plot the Annova Table to see the significance of the variables.</h4>
 
 <pre><code class="r">anova(Titanic.logit.1, test=&quot;Chisq&quot;)
 </code></pre>
@@ -759,7 +764,7 @@ Titanic.logit.1
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 </code></pre>
 
-<p>These results supported our previous hypothesis that <em>Sex</em> and <em>Class</em> are going to be the most important parameters in predicting the fate of the passesgers. Also we can observe <em>Fare</em> is not playing a significant role in the model. So lets try to replace <em>Fare</em> with <em>Fare.pp</em> </p>
+<h4>These results supported our hypothesis that <em>Sex</em> and <em>Class</em> are going to be the most important parameters in predicting the fate of the passesgers. Also we can observe <em>Fare</em> is not playing a significant role in the model. So lets try to replace <em>Fare</em> with _Fare.pp, Which we had created in the data engineering process.</h4>
 
 <pre><code class="r">Titanic.logit.2 &lt;- glm(Fate ~ Sex + Class + Age + Family + Embarked + Fare.pp,                        
                        data = train.batch, family=binomial(&quot;logit&quot;))
@@ -805,7 +810,7 @@ Titanic.logit.2
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 </code></pre>
 
-<p>Still no significant improvement in the model. So lets remove <em>Fare</em> from the model.</p>
+<h4>Still no significant improvement in the model. So lets remove Fare from the model.</h4>
 
 <pre><code class="r">glm(Fate ~ Sex + Class + Age + Family + Embarked, 
     data = train.batch, family=binomial(&quot;logit&quot;))
@@ -826,15 +831,15 @@ Titanic.logit.2
 ## Residual Deviance: 626   AIC: 642
 </code></pre>
 
-<p>From now on I will use <em>Caret</em> Package in R. Since as its documentation Suggests</p>
+<h4>From now on we will use <em>Caret</em> Package in R. Since, As its documentation Suggests:-</h4>
 
-<p>&ldquo;<strong>The caret package (short for classication and regression training) contains functions to streamline the model training process for complex regression and classication problems. The package utilizes a number of R packages but tries not to load them all at package start-up1. The package \suggests&quot;fields includes 26 package. caret loads packages as needed and assumes that they are installed.</strong></p>
+<p>&ldquo;<strong>The caret package (short for classication and regression training) contains functions to streamline the model training process for complex regression and classication problems. The package utilizes a number of R packages but tries not to load them all at package start-up1. The package \suggests&quot;fields includes 26 package. caret loads packages as needed and assumes that they are installed.</strong>&rdquo;</p>
 
-<p>It will be a great tool to compare among different modeling techniques, which we are going to use and compare towards the end for selecting the best model. In Caret we will  base our decision on <em>receiver operating characteristic (ROC)</em>.</p>
+<h4>It will be a great tool to compare among different modeling techniques, which we are going to use and compare towards the end for selecting the best model. In Caret we will  base our decision on <em>receiver operating characteristic (ROC)</em>.</h4>
 
-<p>Also I will like to mention, Modeling taken to an extreme on a training data set can leave us with a model which very accurately maps the training data, but does not generalize well to new samples. This phenomenon, commonly referred to as overfitting, can be addressed by resampling the training samples in a way which approximates the fitted model&#39;s performance on future data. I&#39;m going to use a form of resampling known as 10-fold cross-validation (CV), repeated 3 times.</p>
+<h4>Also I will like to mention, Modeling taken to an extreme on a training data set can leave us with a model which very accurately maps the training data, but does not generalize well to new samples. This phenomenon, commonly referred to as overfitting, can be addressed by resampling the training samples in a way which approximates the fitted model&#39;s performance on future data. I&#39;m going to use a form of resampling known as 10-fold cross-validation (CV), repeated 3 times.</h4>
 
-<h3>We will first run 5 different Glm models and then compare results togather in the end.</h3>
+<h4>We will first run 5 different Glm models and then compare their results togather in the end.</h4>
 
 <pre><code class="r">## Define control function to handle optional arguments for train function
 ## Models to be assessed based on largest absolute area under ROC curve
@@ -1068,7 +1073,7 @@ summary(glm.tune.5)
 </tr>
 <tr>
 <td>Model 2</td>
-<td>+ I(Embarked==&quot;S&rdquo;)</td>
+<td>+ I(Embarked==&ldquo;S&rdquo;)</td>
 <td align="center">784.13</td>
 <td align="center">798.1</td>
 </tr>
@@ -1092,7 +1097,7 @@ summary(glm.tune.5)
 </tr>
 </tbody></table>
 
-<p><strong>From the above table it looks like Model-3 has done the best job amoung these 5 models</strong></p>
+<h4>From the above table it looks like Model-3 has done the best job among these 5 models.</h4>
 
 <h2>Other Methods</h2>
 
@@ -1217,7 +1222,7 @@ svm.tune
 
 <h2>Model Evaluation</h2>
 
-<p>Now we have all different models. To select best amoung these models we will use our Test data set to compare how our models are performing on an unseen data.</p>
+<h4>Now we have all different models. To select best amoung these models we will use our Test data set to compare how our models are performing on an unseen data.</h4>
 
 <pre><code class="r">## Logistic regression model
 glm.pred &lt;- predict(glm.tune.5,test.batch)
@@ -1436,6 +1441,7 @@ plot(svm.ROC, add=TRUE, col=&quot;blue&quot;)
 
 cv.values &lt;- resamples(list(Logit = glm.tune.5, Ada = ada.tune, 
                             RF = rf.tune, SVM = svm.tune))
+
 dotplot(cv.values, metric = &quot;ROC&quot;)
 </code></pre>
 
